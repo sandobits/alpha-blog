@@ -1,5 +1,13 @@
 <h1>Create new Article: </h1>
 
+<% if @article.errors.any? then %>
+  <% @article.errors.full_messages.each do |msg| %>
+    <ul>
+      <li><%= msg %></li>
+    </ul>
+  <% end %>
+<% end %>
+
 <%= form_with scope: :article, url: articles_path, local: true do |f| %>
   <p>
     <%= f.label :title %> <br>

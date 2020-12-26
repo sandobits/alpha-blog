@@ -7,12 +7,17 @@ class ArticlesController < ApplicationController
     @article = Article.find(params[:id])
   end
 
-  def new 
+  def new
+    @article = Article.new()
   end
 
   def create
     @article = Article.new(params.require(:article).permit(:title, :description))
-    @article.save # will return false without error message if fields do not match validation
-    redirect_to @article
+    if @article.save then # will return false without error message if fields do not match validation
+      flash[:notice] = "Article was created successfully!"
+      redirect_to @article
+    else
+      render 'new'
+    end
   end
 end
