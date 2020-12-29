@@ -11,6 +11,10 @@ class ArticlesController < ApplicationController
     @article = Article.new()
   end
 
+  def edit
+    @article = Article.find(params[:id])
+  end
+
   def create
     @article = Article.new(params.require(:article).permit(:title, :description))
     if @article.save then # will return false without error message if fields do not match validation
@@ -18,6 +22,16 @@ class ArticlesController < ApplicationController
       redirect_to @article
     else
       render 'new'
+    end
+  end
+
+  def update
+    @article = Article.find(params[:id])
+    if @article.update(params.require(:article).permit(:title, :description)) then
+      flash[:notice] = "Article ##{@article.id} was updated successfully!"
+      redirect_to @article
+    else
+      render 'edit'
     end
   end
 end
