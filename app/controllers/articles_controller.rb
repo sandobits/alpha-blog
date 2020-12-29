@@ -1,6 +1,6 @@
 class ArticlesController < ApplicationController
   def index
-    @articles = Article.all
+    @articles = Article.where(is_deleted: false || nil)
   end
 
   def show
@@ -37,7 +37,13 @@ class ArticlesController < ApplicationController
 
   def destroy
     @article = Article.find(params[:id])
-    @article.destroy
-    redirect_to articles_path
+    if @article.update(is_deleted: true, deleted_at: DateTime.now) then
+      flash[:notice] = "Article #{@article.id} deleted!"
+      redirect_to articles_path
+    else
+      flash[:notice] = "Unable to delete Article #{@article.id}!"
+      redirect_to articles_path
+    end
+
   end
 end

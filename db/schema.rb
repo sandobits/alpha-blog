@@ -10,13 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_21_132248) do
+ActiveRecord::Schema.define(version: 2020_12_29_103549) do
 
   create_table "articles", force: :cascade do |t|
     t.string "title"
     t.text "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean "is_deleted"
+    t.datetime "deleted_at"
   end
 
 end
