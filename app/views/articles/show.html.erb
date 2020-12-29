@@ -7,3 +7,7 @@
 <p>
   <strong>Description:</strong> <%= @article.description %>
 </p>
+
+<%= link_to 'Back to Articles', articles_path %>
+<%= link_to 'Delete', article_path(@article), method: :delete, data: { confirm: 'Confirm deletion?' } %>
+
